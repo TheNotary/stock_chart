@@ -1,3 +1,6 @@
+var graph_data_uri = "/stock_tickers/{{id}}/graph_data.json";
+var id_of_chart_div = "chart1";
+var chart1;
 
 $(function() {
   $('#Stock_Tickers').on('change', function() {
@@ -10,7 +13,8 @@ $(function() {
 // populatePageWithDataForGivenTicker... I might refactor later to emit events
 // or take in a cb.
 function requestStockTickerDataById(id) {
-  var jqxhr = $.ajax( "/stock_tickers/" + id + ".json" )
+  var resource = graph_data_uri.replace("{{id}}", id);
+  var jqxhr = $.ajax( resource )
   .done(function() {
     populatePageWithDataForGivenTicker( jqxhr.responseJSON );
   })
@@ -22,7 +26,7 @@ function requestStockTickerDataById(id) {
 // This function takes the supplied json data and populates a chart
 // using the chartKick graphing library
 function populatePageWithDataForGivenTicker(json) {
-  var chart1 = new Chartkick.LineChart("chart1",
+  chart1 = new Chartkick.LineChart(id_of_chart_div,
     json.graph_data
   );
 }

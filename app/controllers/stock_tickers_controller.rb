@@ -12,6 +12,10 @@ class StockTickersController < ApplicationController
   def show
   end
 
+  def graph_data
+    @stock_ticker = StockTicker.find(params[:stock_ticker_id])
+  end
+
   # GET /stock_tickers/new
   def new
     @stock_ticker = StockTicker.new
