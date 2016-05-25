@@ -1,0 +1,25 @@
+<%= form_for(@stock_ticker) do |f| %>
+  <% if @stock_ticker.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stock_ticker.errors.count, "error") %> prohibited this stock_ticker from being saved:</h2>
+
+      <ul>
+      <% @stock_ticker.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :stock_symbol %><br>
+    <%= f.text_field :stock_symbol %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

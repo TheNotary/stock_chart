@@ -1,0 +1,29 @@
+<%= form_for(@daily_performance) do |f| %>
+  <% if @daily_performance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@daily_performance.errors.count, "error") %> prohibited this daily_performance from being saved:</h2>
+
+      <ul>
+      <% @daily_performance.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stock_ticker_id %><br>
+    <%= f.number_field :stock_ticker_id %>
+  </div>
+  <div class="field">
+    <%= f.label :stock_price_avg %><br>
+    <%= f.text_field :stock_price_avg %>
+  </div>
+  <div class="field">
+    <%= f.label :yday %><br>
+    <%= f.number_field :yday %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

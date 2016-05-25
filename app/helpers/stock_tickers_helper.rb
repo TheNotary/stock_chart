@@ -1,0 +1,2 @@
+module StockTickersHelper
+end

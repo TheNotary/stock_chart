@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stock ticker:</strong>
+  <%= @daily_performance.stock_ticker_id %>
+</p>
+
+<p>
+  <strong>Stock price avg:</strong>
+  <%= @daily_performance.stock_price_avg %>
+</p>
+
+<p>
+  <strong>Yday:</strong>
+  <%= @daily_performance.yday %>
+</p>
+
+<%= link_to 'Edit', edit_daily_performance_path(@daily_performance) %> |
+<%= link_to 'Back', daily_performances_path %>

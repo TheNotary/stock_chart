@@ -1,0 +1,2 @@
+module DailyPerformancesHelper
+end
