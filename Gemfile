@@ -14,12 +14,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # gem 'puma'
 
+gem 'factory_girl_rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
   gem 'better_errors'
   gem "binding_of_caller"
   gem 'quiet_assets'
@@ -37,4 +37,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'poltergeist'
 end
-
