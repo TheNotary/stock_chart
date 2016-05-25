@@ -1,6 +1,23 @@
+////////////////////
+// Configurations //
+////////////////////
+
+// Point this to the endpoint that serves the graph data for a given Stock Ticker
+// {{id}} is a place holder for integer
 var graph_data_uri = "/stock_tickers/{{id}}/graph_data.json";
+
+// To render the chart to the DOM, you need to place a chart div in the markup
+// with the id defined below
 var id_of_chart_div = "chart1";
+
+// chart1 is an object of type Chartkick.LineChart.  It's exposed as a global
+// to facilitate testing via capybara.
 var chart1;
+
+
+///////////
+// Code  //
+///////////
 
 $(function() {
   $('#Stock_Tickers').on('change', function() {
