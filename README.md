@@ -1,14 +1,10 @@
 # Stock Chart
 
 ##### Features
-- Select Input for choosing from 'all' available stock tickers
-- Ajax pattern
-- Displays line chart of stock prices/ day over 30 day period for a given stock
-- 'all' availble stock tickers include aaa, aab,aac, and aad, 30 days of data each
-
-
-
-
+- Presents a drop down menu for choosing between 'all' available stock tickers
+- Uses an ajax pattern so the page doesn't need to reload
+- Displays a line chart of stock prices over the last 30 days for a selected stock
+- 'all' available stock tickers will be limited to aaa, aab, aac, and aad
 
 ## Details
 
@@ -20,11 +16,9 @@ Create 4 different stocks and 30 days of data for each stock. If you wish, some 
 
 Note: when a stock is selected from the drop down, the page should not reload. This is a necessary requirement.
 
-
-
 ## Loading test data
 
-Since it's not hooked into any stock ticket services, you can load up the data by the below command:
+Since it's not hooked into any stock ticket services, you'll want to load up some test data by the below command:
 
 ```
 4.times { FactoryGirl.create(:stock_ticker_with_30_days) }
