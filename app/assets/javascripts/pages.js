@@ -1,12 +1,8 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
 
 $(function() {
-
-  $('select').on('change', function() {
+  $('#Stock_Tickers').on('change', function() {
     requestStockTickerDataById(parseInt(this.value));
   });
-
 });
 
 // This function initiates a request for json data for a stocker ticker with The
@@ -16,15 +12,17 @@ $(function() {
 function requestStockTickerDataById(id) {
   var jqxhr = $.ajax( "/stock_tickers/" + id + ".json" )
   .done(function() {
-    populatePageWithDataForGivenTicker( jqxhr.responseJSON.name );
+    populatePageWithDataForGivenTicker( jqxhr.responseJSON );
   })
   .fail(function() {
     alert( "Log an error" );
   });
 }
 
-// This function takes the supplied json data and populates w/e graphing library
-// I roll with on this project (TBD)
+// This function takes the supplied json data and populates a chart
+// using the chartKick graphing library
 function populatePageWithDataForGivenTicker(json) {
-  alert( json.name );
+  var chart1 = new Chartkick.LineChart("chart1",
+    json.graph_data
+  );
 }

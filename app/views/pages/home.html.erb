@@ -2,3 +2,5 @@
 <p>Here's a stock chart.</p>
 
 <%= select_tag "Stock Tickers", options_from_collection_for_select(@stock_tickers, "id", "name"), include_blank: "Choose a Stock"-%>
+
+<div id="chart1" style="height: 300px;"></div>
