@@ -30,8 +30,24 @@ RSpec.describe StockTicker, type: :model do
       # check to make sure when I create an extra day I don't get 31 days
     end
 
+    it "should be able to query last year's stock records too given an early yday as now" do
+      stub_time!(five_days_into_a_year)
+      @stock_ticker2 = FactoryGirl.create(:stock_ticker_with_30_days)
+
+      c = @stock_ticker2.select_last_30_days_daily_performances.count
+      expect(c).to eq(30)
+
+      # just to make sure nothing weird happens, advance a day and expect 1 less count
+      stub_time!(five_days_into_a_year.advance(days: 1))
+      c = @stock_ticker2.select_last_30_days_daily_performances.count
+      expect(c).to eq(29)
+    end
 
   end
 
+end
 
+
+def five_days_into_a_year
+  ActiveSupport::TimeZone['Pacific Time (US & Canada)'].parse("2001-1-5 0:00")
 end
