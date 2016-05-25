@@ -11,8 +11,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # No need for this yet, but it's one of my favorites :)
 # gem 'figaro'
-
 # gem 'puma'
+
+
+gem "chartkick"
+
 
 gem 'factory_girl_rails'
 group :development, :test do
