@@ -1,6 +1,8 @@
-////////////////////
-// Configurations //
-////////////////////
+// FIXME: convert to a class/ prototype pattern
+
+/*******************
+ *  Configurations *
+ *******************/
 
 // Point this to the endpoint that serves the graph data for a given Stock Ticker
 // {{id}} is a place holder for integer
@@ -15,9 +17,9 @@ var id_of_chart_div = "chart1";
 var chart1;
 
 
-///////////
-// Code  //
-///////////
+/****************
+ *     Code     *
+ ****************/
 
 $(function() {
   $('#Stock_Tickers').on('change', function() {
