@@ -4,3 +4,25 @@
 <%= select_tag "Stock Tickers", options_from_collection_for_select(@stock_tickers, "id", "name"), include_blank: "Choose a Stock"-%>
 
 <div id="chart1" style="height: 300px;"></div>
+
+<!-- http://127.0.0.1:3000/stock_tickers/21/generate_new_daily_performance_record -->
+
+<%# button_to "Add test datapoint to first ticker", { controller: "stock_tickers", action: "generate_new_daily_performance_record" } %>
+<%# button_to [:generate_new_daily_performance_record, @stock_tickers.first] do %>
+  hi
+<%# end %>
+
+
+
+<% f = @stock_tickers.first %>
+
+
+<%# button_to "Create", { action: "create", controller: "stock_tickers" }, remote: true, form: { "data-type" => "json" } %>
+
+<!-- started to get sleeping =/ -->
+<form method="post" action="/stock_tickers/<%=f.id%>/generate_new_daily_performance_record" class="button_to" data-remote="true">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <button type="submit">
+    add new record to first stock ticker
+  </button>
+</form>

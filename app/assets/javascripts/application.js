@@ -24,7 +24,10 @@ function pageChanged() {
 
   window.fayeClient.connect();
   fayeHelper.subscriptions.add('/save_kittens/data/fresh_data', function(message) {
-    alert("A message came in!");
+    // debugger;
+    // alert("A message came in!");
+    // FIXME: will error if there's no graph displayed... and cause chaos, etc. until more handling is applied =(
+    addDatapointToChart(chart1, JSON.parse(message));
   });
 }
 

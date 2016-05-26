@@ -65,6 +65,24 @@ class StockTickersController < ApplicationController
     end
   end
 
+
+  # POST /stock_tickers/21/generate_new_daily_performance_record
+  def generate_new_daily_performance_record
+    stock_ticker_id = params[:stock_ticker_id]
+    st = StockTicker.find(stock_ticker_id)
+
+    # FIXME:  Buggy... I should have used DateTime for datatype =/
+    biggest_yday = st.daily_performances.maximum(:yday)
+
+    now = DateTime.now
+    performance = st.daily_performances.create(year: now.year, yday: biggest_yday+1, stock_price_avg: 57.01)
+
+    performance_dateTime = now.advance(days: (biggest_yday+1)+1-now.yday)
+
+    DataCube.push_fresh_data(Hash[performance_dateTime, performance.stock_price_avg].to_json)
+    render text: "ok"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stock_ticker
