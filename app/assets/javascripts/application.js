@@ -17,18 +17,22 @@
 //= require_tree .
 
 
-
 // popular turbolinks compliant pattern
 function pageChanged() {
-  window.fayeClient = fayeHelper.initFayeClient();
-
-  window.fayeClient.connect();
-  fayeHelper.subscriptions.add('/save_kittens/data/fresh_data', function(message) {
-    // debugger;
-    // alert("A message came in!");
-    // FIXME: will error if there's no graph displayed... and cause chaos, etc. until more handling is applied =(
-    addDatapointToChart(chart1, JSON.parse(message));
+  window.fayecom = new Fayecom({
+    fayecom_address: document.getElementsByName('fayecom_address')[0].getAttribute("content"),
+    fayecom_protocol: document.getElementsByName('fayecom_protocol')[0].getAttribute("content"),
+    fayecomPort: document.getElementsByName('fayecom_port')[0].getAttribute("content"),
   });
+
+  fayecom.subscriptions.add('/save_kittens/data/fresh_data', on_freshDataReciept);
+}
+
+
+// Callback for when data is published to the subscribed channel
+function on_freshDataReciept(message) {
+  // alert("GOT SOME DATA: " + message);
+  addDatapointToChart(chart1, JSON.parse(message));
 }
 
 
