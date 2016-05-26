@@ -30,3 +30,8 @@ function populatePageWithDataForGivenTicker(json) {
     json.graph_data
   );
 }
+
+
+function addDatapointToChart() {
+
+}

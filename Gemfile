@@ -9,11 +9,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # No need for this yet, but it's one of my favorites :)
-# gem 'figaro'
+gem 'figaro'
 # gem 'puma'
 
 
 gem "chartkick"
+gem "faye"
 
 
 gem 'factory_girl_rails'
@@ -44,4 +45,8 @@ end
 gem 'uglifier'
 group :production do
   gem 'pg'
+end
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-faye'
 end

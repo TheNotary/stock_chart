@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>StockChart</title>
+  <%= render 'layouts/env_vars_for_js' %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag "https://www.google.com/jsapi" %>
   <%= javascript_include_tag 'application' %>
@@ -9,7 +10,9 @@
 </head>
 <body>
 
-<%= yield %>
+  <%= yield %>
 
+  <!-- This is a turbolinks style pattern I've been using lately -->
+  <script>pageChanged();</script>
 </body>
 </html>

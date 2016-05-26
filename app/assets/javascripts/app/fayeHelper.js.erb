@@ -1,0 +1,115 @@
+/*
+  ######################
+  #     FayeHelper     #
+  ######################
+
+  A js library that makes working with websockets made available by
+  FayeCom an absolute snap!
+
+  This this is handy for situations where you want you want a
+  browser client to subscribe to a websocket channel, and you feed
+  messages to said channel by some other means.
+
+  *****************
+  *     Usage     *
+  *****************
+  Ideally you would instantiate.... a lot of this needs to be
+  re-worked...  You should be able to go to this object to do
+  everything you would want with Faye.  So creating the client,
+  connecting it, disconnecting it, etc., etc.
+
+  This code should be moved to fayecome so I don't have to maintain
+  it per rails app that I deploy it against... So the configuration
+  variables fayecom_address, fayecom_protocol, and fayecomPort will
+  need to come out and be a part of the constructor for instantiating
+  the fayeHelper.
+*/
+
+fayeHelper = {
+  initFayeClient: function() {
+    var fayecom_address = document.getElementsByName('fayecom_address')[0].getAttribute("content")
+    var fayecom_protocol = document.getElementsByName('fayecom_protocol')[0].getAttribute("content")
+    var fayecomPort = document.getElementsByName('fayecom_port')[0].getAttribute("content");
+
+    var port = fayecomPort;
+    var url = fayecom_protocol + "://" + fayecom_address + ":" + port + "/faye"; // eg 'http://localhost:8000/faye'
+
+    console.log("about to try a connection to fayecom at " + url);
+
+    window.fayeClient = new Faye.Client(url).on('transport:up', function() {
+      console.log("transport up");
+      fayeClient.online = true;
+    }).on('transport:down', function() {
+      console.log("transport down");
+      fayeClient.online = false;
+    });
+
+    return fayeClient;
+  },
+  subscriptions: {
+    clearAll: function() {
+      throw "not implemented";
+    },
+
+    // This will subscribe the client to a new channel
+    // parameters:
+    //   channel:
+    //      A string that is the name of the channel to
+    //      subscribe to.
+    //   messageProcessingCallback:
+    //      A callback function that will execute when a message
+    //      hits the channel being subscribed to.  The cb will
+    //      recieve 1 parameter, a message (JSON hash).
+    add: function(channel, messageProcessingCallback) {
+      if ( !fayeHelper.subscriptions.doesSubscriptionAlreadyExist(channel) ){
+        console.log("Subscribing to channel: " + channel);
+        var subscription = fayeClient.subscribe(channel, function(message) {
+          // message: {"signatureCount":54,"topThreeStates":["CA"]}
+          console.log(getThisFunctionsName(message));
+          messageProcessingCallback(message)
+        });
+
+        fayeHelper.subscriptions.collection.push(subscription);
+        return subscription;
+      }
+      else {
+        console.log("skipping add to channel since already subscribed to " + channel);
+      }
+    },
+    doesSubscriptionAlreadyExist: function(channel) {
+      for (subscription in fayeHelper.subscriptions.collection){
+        if (subscription._channels == channel){
+          return true;
+        }
+      return false;
+      }
+    },
+    collection: []
+  }
+}
+
+
+// popular turbolinks complient pattern
+function pageChanged() {
+  window.fayeClient = fayeHelper.initFayeClient();
+
+  window.fayeClient.connect();
+  fayeHelper.subscriptions.add('/save_kittens/data/fresh_data', function(message) {
+    alert("A message came in!");
+  });
+}
+
+
+
+
+
+
+
+// when you're in an anonymous function that's been assigned to
+// an object hash, this function returns the string of the key name of the function
+// eg var myObj = { a: function(){ return getThisFunctionsName(this)}} returns "a"
+function getThisFunctionsName(object) {
+  for(p in object){
+    return p;
+  }
+}
