@@ -32,6 +32,32 @@ function populatePageWithDataForGivenTicker(json) {
 }
 
 
-function addDatapointToChart() {
 
+// This function will take the existing data in chart1, and add the dataPoint
+// passed into to, then create a brand new chart out of the data
+// Parameters:
+//   chartObject: An instantiation of Chartkick.LineChart
+//   dataPoint:   A JSON hash container any number of Date: Decimal pairs.
+//
+// example:  addDatapointToChart(chart1, JSON.parse("{\"2016-05-25T00:00:00-07:00\": \"99.99\"}"))
+function addDatapointToChart(chartObject, dataPoint) {
+  var addition = merge_options(chart1.dataSource, dataPoint);
+
+  chart1 = new Chartkick.LineChart(chartObject.element.id,
+    addition
+  );
+}
+
+
+/**
+ * Overwrites obj1's values with obj2's and adds obj2's if non existent in obj1
+ * @param obj1
+ * @param obj2
+ * @returns obj3 a new object based on obj1 and obj2
+ */
+function merge_options(obj1,obj2){
+    var obj3 = {};
+    for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
+    for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
+    return obj3;
 }

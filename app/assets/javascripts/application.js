@@ -10,11 +10,24 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//  # remark! # require chartkick
 //= require jquery
 //= require jquery_ujs
-//= require chartkick
 //= require faye
 //= require_tree .
+
+
+
+// popular turbolinks compliant pattern
+function pageChanged() {
+  window.fayeClient = fayeHelper.initFayeClient();
+
+  window.fayeClient.connect();
+  fayeHelper.subscriptions.add('/save_kittens/data/fresh_data', function(message) {
+    alert("A message came in!");
+  });
+}
+
 
 
 // This is a really handy function for inspecting javascript objects!
