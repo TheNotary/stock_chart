@@ -69,7 +69,7 @@ class StockTickersController < ApplicationController
   # POST /stock_tickers/21/generate_new_daily_performance_record
   def generate_new_daily_performance_record
     stock_ticker_id = params[:stock_ticker_id]
-    st = StockTicker.find(stock_ticker_id)
+    st = StockTicker.find(stock_ticker_id.to_i)
 
     # FIXME:  Buggy... I should have used DateTime for datatype =/
     biggest_yday = st.daily_performances.maximum(:yday)

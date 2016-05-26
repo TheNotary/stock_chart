@@ -1,7 +1,9 @@
+# extract this to gem 'fayecom-rails'
+# rename to just Fayecom
 class DataCube
 
-  def self.push_fresh_data(d)
-    push_data "/save_kittens/data/fresh_data", d
+  def self.push_fresh_data(json_hash_string)
+    push_data "/save_kittens/data/fresh_data", json_hash_string
   end
 
   def self.fayecom_url

@@ -43,7 +43,6 @@ function populatePageWithDataForGivenTicker(json) {
 function addDatapointToChart(chartObject, dataPoint) {
   var addition = merge_options(chart1.dataSource, dataPoint);
 
-  // debugger;
   chart1 = new Chartkick.LineChart(chartObject.element.id,
     addition
   );
